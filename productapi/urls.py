@@ -15,10 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-# from django.conf.urls.static import static
-# from django.conf import settings
+from django.conf.urls.static import static
+from django.conf import settings
+from django.shortcuts import render
 
 # +static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+def home(request):
+    return render(request,'index.html')
+
 urlpatterns = [
 
     path('admin/', admin.site.urls),
@@ -26,7 +31,8 @@ urlpatterns = [
     path('api/user/',include("authapi.urls")),
     path('orders/',include("order.urls")),
     path('review/',include("feedback.urls")),
-    path('location/',include("locations.urls"))
+    path('location/',include("locations.urls")),
+    path('hello/',home)
 
-]
+]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

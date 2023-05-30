@@ -29,9 +29,10 @@ AUTH_USER_MODEL = 'authapi.User'
 SECRET_KEY = 'django-insecure-$3zp8ijg(!2fpiop%t2b$t7cgn@z&k@hy6&r(4xxv-)gk5li@c'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True 
+DEBUG=False
 
-ALLOWED_HOSTS = ['10.0.2.2','127.0.0.1']
+ALLOWED_HOSTS = ['10.0.2.2','127.0.0.1','*']
 
 
 # Application definition
@@ -56,6 +57,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
      "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
@@ -70,7 +72,7 @@ ROOT_URLCONF = 'productapi.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR/'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,7 +133,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -162,11 +163,14 @@ REST_FRAMEWORK = {
 
 # }
 
-STATIC_URL='/products/images/'
+# STATIC_URL='/products/images/'
 
-STATICFILES_DIRS = [
-"products/images"
-]
+# STATICFILES_DIRS = [BASE_DIR/'staticfiles']
+
+
+STATIC_URL='/static/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATIC_ROOT=BASE_DIR/'staticfiles'
 
 
 
